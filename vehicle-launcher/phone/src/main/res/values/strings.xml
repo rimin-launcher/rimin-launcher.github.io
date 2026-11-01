@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sealion One Key</string>
+    <string name="channel_service">차량 근접 감지</string>
+    <string name="channel_events">잠금·열림 알림</string>
+    <string name="shortcut_lock">차량 잠금</string>
+    <string name="shortcut_unlock">차량 열림</string>
+    <string name="shortcut_trunk">트렁크 열기</string>
+    <string name="shortcut_climate">공조 켜기</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sealion One</string>
+    <string name="service_channel">차량 연결</string>
+    <string name="service_running">차량 연결과 휴대폰 키를 유지하고 있습니다</string>
+</resources>

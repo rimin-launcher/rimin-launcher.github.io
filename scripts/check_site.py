@@ -18,7 +18,9 @@ STATIC_FILES = {
     'licenses/third-party-notices.txt', 'licenses/tailnet-notices.txt', 'licenses/mit-notice.txt',
     'updates/vehicle-public.json', 'updates/phone-public.json',
 }
-REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_site.py'}
+REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', '.github/workflows/android.yml', 'scripts/check_site.py'}
+# Android app sources live here; they are never part of the published website.
+SOURCE_DIRECTORY = 'vehicle-launcher/'
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
@@ -211,7 +213,7 @@ def check(site, repository=None):
             allowed.add(name)
     require(set(inventory) == allowed, 'Unexpected files in public website output')
     if repository is not None:
-        root_files = files(repository, ignore_git=True)
+        root_files = {name for name in files(repository, ignore_git=True) if not name.startswith(SOURCE_DIRECTORY)}
         expected_files = REPOSITORY_FILES | {'site/' + name for name in allowed}
         require(set(root_files) == expected_files, 'Repository contains files outside the public website allowlist')
     return len(allowed)
