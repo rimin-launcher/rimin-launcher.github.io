@@ -22,6 +22,9 @@ REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_s
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
+    'downloads/SealionHome-0.9.94-vehicle-release.apk':
+        (24584586, '9e33e8da702c81f76b9ca199b4088ed2f7ae6a38553c40fb378caf9b5707d7f8'),
+
     'downloads/SealionHome-0.9.93-vehicle-release.apk':
         (24584586, '4e6ccf4751fda031f4504c04f56e6d9fc345522882e1de4639fc63a251f797dc'),
 
