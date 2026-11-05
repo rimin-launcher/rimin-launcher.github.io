@@ -10,8 +10,8 @@ import subprocess
 import tempfile
 
 BASE_URL = 'https://rimin-launcher.github.io/'
-PUBLIC_KEY = 'MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAu5UEs3D7N56OxVLXLHLUYqAxovN/AcBNStbTtrGZg3FJkGkqY2XbK1JBnU9z4UuaUi5k6hPIoKihoRxNzNAdaizLwub4giapoPNcf/M8q9G52h1/+2HyZbGsK8TZpEyvhg6E5GhC3GbAgmtwTW0YDZFF+43BmgypieKKHDE7aKPl+wq22V+1JHrzI8jaRmiOwyhTQ3ZJTqo0tEl2HRZSvtSmJ4p3aAFwdCBYgGibikfcwAoKCMtz2bvJ6fPv/PNLxEXLpwbmin5OOmuRGqJyIPGSQyXrelFz4wuqrHsYNcjVvczxlxOteTVmkWR2HbmyQZC8akMpomqjGqpbOed1e4TQolZjU18ZtnxDgfOmr84KA/0OUW/fvhJq5L9EJF1NanfRRXlCw1l/zAZ7sXIecQlPEIxi9ivenWDY+pA+DDx3OP7dmdYlhNJ2qnrU0i/ZWIp33Xnw4QSLBZ0aeoRFrHNQmjCz1jr5GGyHNSsHOPcjCVqSsGv3B4VeymQIGOMXAgMBAAE='
-CERTIFICATE = '8fc45e48e4fe6af28aca5989ee19072a98fa6859498182e62e6c471638ca5858'
+PUBLIC_KEY = 'MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAuI5h4EDtDSRv/RtaQmty/m4qAKrhZQuTesx/SSxg60atEdR5svajiIX8Bcqp4huMGNAEY0aesvYjHCkRbJmXqEmg150RcJkpfOj3ZH6f+08ON2rDSbtdgymzDX70aESvVOGB5nOfOCCwbO/2fwuyrPwwnq1QSOtVJ6pUDH42XTxVY864QkU48iUk276GakjqBPsV+vZJFg4RFTW0n8ZUh1aXlx6FSG4KSsnfLNh50cVcmiJ7eOSFSrygGPy0R5pSnOqze7c5WvMdG7u+1gYx/33JX8Y381WedCDD24HTVTn097CJPFQA+2/UF/XXwdoSV4MBqpWmwVWCK5C7i8hbEhr+hkkrg8MrT4Yvmsk3X1KRR14Buhg5KxloWXZKAieSu1NRxyUDe8zSbqjxQer/TEmyN708Lx2SmZ6jKHgHdazXcQOJD8YaERIiU9IiuU3JjvX+1TmISFvCpeXmUfsvezkU4f14PsbPNr2gkBqGvjAtpFY0CfCjT4Ejt3GNWXyvAgMBAAE='
+CERTIFICATE = 'cf74eb862c21f5af4ed3c4987ce6ea391fff23eb793852b88c9473975156bd6c'
 STATIC_FILES = {
     '.nojekyll', 'index.html', 'privacy.html', 'licenses.html', 'release-notes.html',
     'releases.json', 'robots.txt', 'assets/site.js', 'assets/site.css', 'assets/mark.svg',
@@ -22,6 +22,12 @@ REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_s
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
+    'downloads/SealionHome-0.9.77-vehicle-release.apk':
+        (33505667, '22168a3ae7428a9bcf7a3776803ffd6e01d9859f9fc45f200676f5d00c211cea'),
+
+    'downloads/SealionLink-0.8.45-phone-release.apk':
+        (24352336, 'c89aa2f62f7fd30bf04f74cc7fa65dac58954a7321975f36f39047125e618434'),
+
     'downloads/SealionHome-0.9.76-vehicle-release.apk':
         (33456515, 'a8d536baedae0ce7a9d46014a74adcf8b2602d2326aa6de30fe6be83e59c83a5'),
 
