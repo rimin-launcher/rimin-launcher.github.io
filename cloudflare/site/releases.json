@@ -2,17 +2,17 @@
   "schema": 1,
   "date": "2026-11-06",
   "vehicle": {
-    "versionName": "0.12.17",
-    "versionCode": 203,
-    "file": "downloads/LumiHome-0.12.17-vehicle-release.apk",
+    "versionName": "0.12.18",
+    "versionCode": 204,
+    "file": "downloads/LumiHome-0.12.18-vehicle-release.apk",
     "bytes": 24682890,
-    "sha256": "06ce94dc363eb1eedacc560ad5a4761befea3253f91eb9c14ba32fbda12c32de"
+    "sha256": "7b6b444ad696163311480bbbb22c0f4c3ac020e6934b15ce53a0762608fffdff"
   },
   "phone": {
-    "versionName": "0.8.77",
-    "versionCode": 78,
-    "file": "downloads/LumiLink-0.8.77-phone-release.apk",
-    "bytes": 23647825,
-    "sha256": "668a6ef309b71b27222746fae334286a9a7c8379898858b0ed3ba23043a45ff0"
+    "versionName": "0.8.78",
+    "versionCode": 79,
+    "file": "downloads/LumiLink-0.8.78-phone-release.apk",
+    "bytes": 23664209,
+    "sha256": "678e0ee3464e0226baf5b0dc3a57f994228906a0f18917e516bee9d5ee4b8fe7"
   }
 }
