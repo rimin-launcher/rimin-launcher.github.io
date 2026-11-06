@@ -75,3 +75,21 @@ async function loadReleases() {
   }
 }
 if (document.getElementById("download")) loadReleases();
+
+// Theme gallery: swap the home screenshot when a theme chip is pressed.
+(function wireThemes() {
+  const shot = document.getElementById("theme-shot");
+  const chips = [...document.querySelectorAll("[data-theme]")];
+  if (!shot || !chips.length) return;
+  chips.forEach(chip => chip.addEventListener("click", () => {
+    chips.forEach(c => c.setAttribute("aria-pressed", String(c === chip)));
+    const src = "assets/shots/home-" + chip.dataset.theme + ".webp";
+    if (shot.getAttribute("src") === src) return;
+    shot.classList.add("is-loading");
+    const next = new Image();
+    next.onload = next.onerror = () => { shot.src = src; shot.alt = "Lumi Home 홈 화면, " + chip.textContent + " 테마"; shot.classList.remove("is-loading"); };
+    next.src = src;
+  }));
+  // Warm the cache so switching feels instant.
+  setTimeout(() => chips.forEach(c => { const i = new Image(); i.src = "assets/shots/home-" + c.dataset.theme + ".webp"; }), 1500);
+})();

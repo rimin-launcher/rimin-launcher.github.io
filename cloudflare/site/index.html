@@ -10,7 +10,7 @@
 <meta property="og:description" content="내 차 화면에 빛을 켜다. SEALION 7용 차량 런처 · 휴대폰 · 워치 앱">
 <meta property="og:url" content="https://lumi-launcher.dev/">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/site.css?v=lumi-1">
+<link rel="stylesheet" href="assets/site.css?v=lumi-2">
 </head>
 <body>
 <a class="skip-link" href="#main">본문 바로가기</a>
@@ -19,6 +19,7 @@
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Lumi 처음으로"><img src="assets/mark.svg" alt="">Lumi<small>Launcher</small></a>
     <nav class="topnav" aria-label="주 메뉴">
+      <a href="#gallery">화면</a>
       <a href="#features">기능</a>
       <a href="#install">설치</a>
       <a href="#faq">자주 묻는 질문</a>
@@ -41,25 +42,55 @@
         <p class="hero-note">BYD의 공식 앱이 아닌 개인 프로젝트예요 · Android 11 이상</p>
       </div>
 
-      <div class="devices" aria-hidden="true">
-        <div class="dev dev-car">
-          <div class="tile map"><b>내비게이션</b><span class="route"></span></div>
-          <div class="side">
-            <div class="tile"><b>실내 온도</b><em>21.5°</em></div>
-            <div class="tile"><b>음악</b><em>♪</em></div>
-          </div>
-          <div class="dock"><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
-        <div class="dev dev-phone">
-          <span class="notch"></span>
-          <div class="car-art">SEALION 7</div>
-          <div class="pill on">문 잠김</div>
-          <div class="pill">공조 켜기</div>
-        </div>
-        <div class="dev dev-watch"><div><b>82%</b><span>배터리</span></div></div>
-      </div>
+      <figure class="hero-shot">
+        <div class="screen"><img src="assets/shots/home-aurora.webp" width="1600" height="900" alt="Lumi Home 홈 화면, 오로라 테마. 내비게이션·음악·내 차 카드와 아래 공조 도크"></div>
+        <figcaption>Lumi Home · 오로라 테마</figcaption>
+      </figure>
     </div>
   </div>
+
+  <section id="gallery" aria-labelledby="gallery-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Themes</p>
+        <h2 id="gallery-title">계절마다 바뀌는 홈 화면.</h2>
+        <p>배경과 카드 색이 함께 바뀌는 테마가 9가지 있어요. 눈, 꽃잎, 낙엽은 화면에서 실제로 움직여요.</p>
+      </div>
+      <div class="theme-viewer">
+        <div class="screen"><img id="theme-shot" src="assets/shots/home-aurora.webp" width="1600" height="900" alt="Lumi Home 홈 화면, 오로라 테마"></div>
+        <div class="theme-chips" aria-label="테마 고르기"><button type="button" data-theme="aurora" aria-pressed="true">오로라</button><button type="button" data-theme="spring" aria-pressed="false">봄 · 벚꽃</button><button type="button" data-theme="summer" aria-pressed="false">여름 · 바다</button><button type="button" data-theme="autumn" aria-pressed="false">가을 · 단풍</button><button type="button" data-theme="winter" aria-pressed="false">겨울 · 설경</button><button type="button" data-theme="paper" aria-pressed="false">종이 질감</button><button type="button" data-theme="christmas" aria-pressed="false">크리스마스</button></div>
+      </div>
+      <figure class="shot-wide">
+        <img src="assets/shots/themes.webp" width="1400" height="280" alt="설정의 런처 디자인 화면. 오로라, 노을, 바다, 봄·벚꽃, 여름·바다, 가을·단풍, 겨울·설경, 종이 질감, 크리스마스·눈 테마" loading="lazy">
+        <figcaption>설정 › 디자인에서 한 번 눌러 바꿔요.</figcaption>
+      </figure>
+
+      <div class="section-head sub">
+        <p class="eyebrow">Screens</p>
+        <h2>화면 둘러보기</h2>
+      </div>
+      <div class="shots">
+        <figure class="shot">
+          <div class="screen"><img src="assets/shots/comfort.webp" width="1600" height="900" alt="공조·시트 화면. 운전석·동승석 온도, 시트 열선·통풍, A/C·AUTO·앞유리 제상·핸들 열선, 바람 방향과 풍량" loading="lazy"></div>
+          <figcaption><strong>공조 · 시트</strong>온도, 열선·통풍, 바람 방향과 풍량을 한 화면에서 조절해요.</figcaption>
+        </figure>
+        <figure class="shot portrait">
+          <div class="screen"><img src="assets/shots/portrait-home.webp" width="720" height="1280" alt="세로 화면의 Lumi Home" loading="lazy"></div>
+          <figcaption><strong>세로 화면</strong>화면을 세로로 돌려도 맞춰서 바뀌어요.</figcaption>
+        </figure>
+      </div>
+      <div class="cluster-set">
+        <h3>계기판 디자인</h3>
+        <p>속도계 모양을 골라 계기판에 띄워요. 내비 화면을 계기판에 꽉 채워 보여 줄 수도 있어요.</p>
+        <div class="cluster-grid">
+          <figure><img src="assets/shots/cluster-road.webp" width="1600" height="600" alt="로드뷰 계기판: 속도, 기어, 출력, 이번 주행 거리와 전비" loading="lazy"><figcaption>로드뷰</figcaption></figure>
+          <figure><img src="assets/shots/cluster-blue.webp" width="1600" height="600" alt="블루 클래식 계기판: 원형 속도계 두 개" loading="lazy"><figcaption>블루 클래식</figcaption></figure>
+          <figure><img src="assets/shots/cluster-edge.webp" width="1600" height="600" alt="디지털 엣지 계기판" loading="lazy"><figcaption>디지털 엣지</figcaption></figure>
+        </div>
+      </div>
+      <p class="caption">모두 실제 앱 코드로 그린 화면이에요. 차량에 연결하지 않고 그려서 배터리 같은 일부 값은 비어 있거나 ‘미수신’으로 보여요.</p>
+    </div>
+  </section>
 
   <section class="alt" aria-labelledby="trio-title">
     <div class="wrap">
@@ -137,8 +168,7 @@
           </ul>
         </article>
       </div>
-      <p class="caption">위 화면 그림은 설명을 위한 예시예요. 실제 앱 화면과 다르고, 표시된 숫자도 예시입니다.</p>
-    </div>
+          </div>
   </section>
 
   <section class="alt" id="install" aria-labelledby="install-title">
@@ -246,6 +276,6 @@
     <p>SEALION 7용 개인 프로젝트예요. BYD의 공식 제품이나 서비스가 아니에요. © 2026 Lumi</p>
   </div>
 </footer>
-<script src="assets/site.js?v=lumi-1" defer></script>
+<script src="assets/site.js?v=lumi-2" defer></script>
 </body>
 </html>
