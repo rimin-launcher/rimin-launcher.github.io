@@ -1,0 +1,12 @@
+name = "lumi-launcher"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+
+[[r2_buckets]]
+binding = "SITE"
+bucket_name = "lumi-site"
+
+[[routes]]
+pattern = "lumi-launcher.dev"
+custom_domain = true
