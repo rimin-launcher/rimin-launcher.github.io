@@ -18,7 +18,8 @@ STATIC_FILES = {
     'licenses/third-party-notices.txt', 'licenses/tailnet-notices.txt', 'licenses/mit-notice.txt',
     'updates/vehicle-public.json', 'updates/phone-public.json',
 }
-REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_site.py'}
+REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_site.py',
+                    'cloudflare/worker.js', 'cloudflare/wrangler.toml', 'cloudflare/upload-site.sh'}
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
