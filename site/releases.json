@@ -2,11 +2,11 @@
   "schema": 1,
   "date": "2026-11-06",
   "vehicle": {
-    "versionName": "0.12.5",
-    "versionCode": 191,
-    "file": "downloads/SealionHome-0.12.5-vehicle-release.apk",
+    "versionName": "0.12.6",
+    "versionCode": 192,
+    "file": "downloads/SealionHome-0.12.6-vehicle-release.apk",
     "bytes": 24682890,
-    "sha256": "8d58e40d23228e29c6c444ff38faf2b3cdd4b99b8435de8230754599f3dd63bf"
+    "sha256": "258153cfc04712b6b611790e83c4fd2194139b089cb3e87613cc4b6531b82bb9"
   },
   "phone": {
     "versionName": "0.8.74",
