@@ -10,3 +10,11 @@ bucket_name = "lumi-site"
 [[routes]]
 pattern = "lumi-launcher.dev"
 custom_domain = true
+
+[ai]
+binding = "AI"
+
+[[ratelimits]]
+name = "AI_LIMIT"
+namespace_id = "1001"
+simple = { limit = 12, period = 60 }
