@@ -2,11 +2,11 @@
   "schema": 1,
   "date": "2026-11-06",
   "vehicle": {
-    "versionName": "0.12.22",
-    "versionCode": 208,
-    "file": "downloads/LumiHome-0.12.22-vehicle-release.apk",
+    "versionName": "0.12.23",
+    "versionCode": 209,
+    "file": "downloads/LumiHome-0.12.23-vehicle-release.apk",
     "bytes": 24699274,
-    "sha256": "eb8b47790c86ea1536af2185adcb27be949c42e6bb2c974bf086dec5e85228a7"
+    "sha256": "7940768c9c11ad0fa1dcff6dc8588ac5ee74e801d359cecbd5326c07788d29db"
   },
   "phone": {
     "versionName": "0.8.79",
