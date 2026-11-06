@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "date": "2026-11-06",
+  "vehicle": {
+    "versionName": "0.12.14",
+    "versionCode": 200,
+    "file": "downloads/LumiHome-0.12.14-vehicle-release.apk",
+    "bytes": 24682890,
+    "sha256": "59d8b88ea725f39892f060db29dd46b810c43e5bbdda495d92bc8f8f862cbbdb"
+  },
+  "phone": {
+    "versionName": "0.8.77",
+    "versionCode": 78,
+    "file": "downloads/LumiLink-0.8.77-phone-release.apk",
+    "bytes": 23647825,
+    "sha256": "668a6ef309b71b27222746fae334286a9a7c8379898858b0ed3ba23043a45ff0"
+  }
+}

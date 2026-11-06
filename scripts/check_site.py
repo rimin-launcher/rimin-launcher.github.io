@@ -18,8 +18,9 @@ STATIC_FILES = {
     'licenses/third-party-notices.txt', 'licenses/tailnet-notices.txt', 'licenses/mit-notice.txt',
     'updates/vehicle-public.json', 'updates/phone-public.json',
 }
-REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_site.py',
-                    'cloudflare/worker.js', 'cloudflare/wrangler.toml', 'cloudflare/upload-site.sh'}
+REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_site.py'}
+# cloudflare/ holds the lumi-launcher.dev Worker, upload script and site source; it is never published to Pages.
+CLOUDFLARE_PREFIX = 'cloudflare/'
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
@@ -147,7 +148,7 @@ def check(site, repository=None):
     if repository is not None:
         root_files = files(repository, ignore_git=True)
         expected_files = REPOSITORY_FILES | {'site/' + name for name in allowed}
-        require(set(root_files) == expected_files, 'Repository contains files outside the public website allowlist')
+        require({f for f in root_files if not f.startswith(CLOUDFLARE_PREFIX)} == expected_files, 'Repository contains files outside the public website allowlist')
     return len(allowed)
 
 
