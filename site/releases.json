@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "date": "2026-11-05",
+  "date": "2026-11-06",
   "vehicle": {
     "versionName": "0.10.0",
     "versionCode": 181,
@@ -9,10 +9,10 @@
     "sha256": "b3d1fe5812056d5b9ada2d6db8ff14aa5ebf7050da4e6118e09499f4ae84d37e"
   },
   "phone": {
-    "versionName": "0.8.61",
-    "versionCode": 62,
-    "file": "downloads/SealionLink-0.8.61-phone-release.apk",
+    "versionName": "0.8.62",
+    "versionCode": 63,
+    "file": "downloads/SealionLink-0.8.62-phone-release.apk",
     "bytes": 23615057,
-    "sha256": "08428e67374274f87bbac1c364879bedd7609959254b0f5f30f89f3b21ed9059"
+    "sha256": "0d278723b78b7b4b95c6c5cb0394ceaaf4eb155b3e5a9c50e8e1baf59b79efc2"
   }
 }

@@ -22,6 +22,9 @@ REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_s
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
+    'downloads/SealionLink-0.8.61-phone-release.apk':
+        (23615057, '08428e67374274f87bbac1c364879bedd7609959254b0f5f30f89f3b21ed9059'),
+
     'downloads/SealionLink-0.8.60-phone-release.apk':
         (23598673, 'b01468e1b430fd9adaf9047234f69673250f50ce8e584666894e4279e62f5525'),
 
