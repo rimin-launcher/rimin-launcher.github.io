@@ -30,6 +30,8 @@ ARCHIVED_DOWNLOADS = {
         (23647825, '1e0f5d405b2c6802d41ae084b1fb687c6b37b7c5a39ec3b3ad23d5be6250ae42'),
     'downloads/SealionLink-0.8.74-phone-release.apk':
         (23647825, 'd6bf868f8389945698f2ebd4cb3a9802fda0b99288128b9460331efe07085c9b'),
+    'downloads/SealionLink-0.8.75-phone-release.apk':
+        (23647825, 'dd1186b6dfbfdb52fb4b2a44dd392b3576880660888a70fe972fb2458c83b116'),
     'downloads/SealionWatch-0.1.0-watch-release.apk':
         (304188, 'f538a6a36848ef714f693f373ebaa3cdf9d08c07c6e092d7863d1ee01bc0ffa9'),
 }
