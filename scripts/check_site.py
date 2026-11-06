@@ -22,208 +22,172 @@ REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_s
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
-    'downloads/SealionLink-0.8.73-phone-release.apk':
-        (23647825, '1e0f5d405b2c6802d41ae084b1fb687c6b37b7c5a39ec3b3ad23d5be6250ae42'),
-
-    'downloads/SealionLink-0.8.72-phone-release.apk':
-        (23647825, '65e49d2dbb597905381d16b1f819e2e7008591da1b537ca775cd02dbb88e6795'),
-
-    'downloads/SealionLink-0.8.71-phone-release.apk':
-        (23647825, '8546306e852ecbc23a7612b547bb3959f73b70398e781e2d6aaa561a10d164c4'),
-
-    'downloads/SealionLink-0.8.70-phone-release.apk':
-        (23647825, '9407bcedd68378d793e6e6492c2de9f370ec1e8f316925b9543281bf57440239'),
-
-    'downloads/SealionLink-0.8.69-phone-release.apk':
-        (23647825, 'd2bdc845a0d3c8778fa1cc72868efc4edb34d7fddc8ede161da6abfcd9186638'),
-
-    'downloads/SealionLink-0.8.68-phone-release.apk':
-        (23631441, 'f4b98c8257817cab4d034e257e6eb80b0f139470852ea16d713d8e09c3611cf0'),
-
-    'downloads/SealionHome-0.12.0-vehicle-release.apk':
-        (24666506, 'c4ea8b271598fbe069167d3717bc66c69f30df1a0dee768b3da81d38ca97c339'),
-
-    'downloads/SealionHome-0.11.1-vehicle-release.apk':
-        (24666506, 'eadaebebcad0ac2f3e5bd10b8749e2324a69d692647bb39751dc6a8ee82bd5cc'),
-
-    'downloads/SealionLink-0.8.67-phone-release.apk':
-        (23631441, '2ea9cb9fe8a4b206d0043605ca85542983aef19b21379cf13f29186ab30283de'),
-
-    'downloads/SealionLink-0.8.66-phone-release.apk':
-        (23631441, '8be6fcaa5a3ab886e48f0c463463f84b11308620af707b2ff777707ceff52af4'),
-
-    'downloads/SealionLink-0.8.65-phone-release.apk':
-        (23631441, '87c75c25d8459858dd635f70b87a672353a3ecae8cb537a6f3bd5b42bd70b7dc'),
-
-    'downloads/SealionLink-0.8.64-phone-release.apk':
-        (23631441, '7e5699e0831f7ec40198fd9335b61be1ed205c0ee759e0883ad74333cf1e24a5'),
-
-    'downloads/SealionHome-0.11.0-vehicle-release.apk':
-        (24666506, '704d2b17d659a78fdc17bb8cab635e9e7642c23e671d9fa75c0d6c41f7a86a3e'),
-
-    'downloads/SealionHome-0.10.2-vehicle-release.apk':
-        (24633738, '92c94c03493c58cadea7ddf2561de439eace5c9f58b90b5c97ca81479fae8d10'),
-
-    'downloads/SealionWatch-0.1.0-watch-release.apk':
-        (304188, '419c1f2a6725b7ae8300bd78db2926561d2c7fed756ead4ea3a1d76b922432f4'),
-
-    'downloads/SealionLink-0.8.63-phone-release.apk':
-        (23615057, '07e02aaad80e771bb952fcc9165f5d658ee15c395d9e4809867d1e942762334d'),
-
-    'downloads/SealionLink-0.8.62-phone-release.apk':
-        (23615057, '0d278723b78b7b4b95c6c5cb0394ceaaf4eb155b3e5a9c50e8e1baf59b79efc2'),
-
-    'downloads/SealionHome-0.10.1-vehicle-release.apk':
-        (24633738, '7e6dfd012d417fac6b6716c1f6140d84d6a7268e495ca2c7199a65aa7a77a7c8'),
-
     'downloads/SealionHome-0.10.0-vehicle-release.apk':
         (24633738, 'b3d1fe5812056d5b9ada2d6db8ff14aa5ebf7050da4e6118e09499f4ae84d37e'),
-
-    'downloads/SealionLink-0.8.61-phone-release.apk':
-        (23615057, '08428e67374274f87bbac1c364879bedd7609959254b0f5f30f89f3b21ed9059'),
-
-    'downloads/SealionLink-0.8.60-phone-release.apk':
-        (23598673, 'b01468e1b430fd9adaf9047234f69673250f50ce8e584666894e4279e62f5525'),
-
-    'downloads/SealionHome-0.9.99-vehicle-release.apk':
-        (24633738, '432adf7318cd89bba429736c37c66753bb830155a49831d11d87e23c4c30796b'),
-
-    'downloads/SealionHome-0.9.98-vehicle-release.apk':
-        (24617354, 'ef09e39332946c7bc661919e80b8661054ff85eb72c9081a23819e9bc54b3a30'),
-
-    'downloads/SealionLink-0.8.59-phone-release.apk':
-        (23598673, '64192262eb97e776ffbcd94cb23323f9eaf40f9cd3cbebc4731f191e3e8bca1b'),
-
-    'downloads/SealionLink-0.8.58-phone-release.apk':
-        (23598673, '109871ad600c0fc7007bef6db98215377167d06cc82d0dad2b4ec8f7e20409fe'),
-
-    'downloads/SealionHome-0.9.97-vehicle-release.apk':
-        (24617354, '9d9dbd17f3f9b11e4c96aa998cbd44a35c36fe67b9f9e214e36859848734e545'),
-
-    'downloads/SealionLink-0.8.57-phone-release.apk':
-        (23582289, '996ee5835b7ec1e9efaec04a90f2529ec853e14a7dad4c138b5a70ab55903241'),
-
-    'downloads/SealionHome-0.9.96-vehicle-release.apk':
-        (24584586, 'ae797b3210fca8985e7a8be51fd134090e34c4c9dcbe2580fb04959cf0a19bc2'),
-
-    'downloads/SealionLink-0.8.56-phone-release.apk':
-        (23565905, 'cc4f57ce850852260633cbba61adf80b6007d35006a89cfea15061e6a1543ff5'),
-
-    'downloads/SealionHome-0.9.95-vehicle-release.apk':
-        (24584586, '33b4f035d292acbc9c48004b8f96cefd4688474ec8c17b960025c3c3cce785fd'),
-
-    'downloads/SealionHome-0.9.94-vehicle-release.apk':
-        (24584586, '9e33e8da702c81f76b9ca199b4088ed2f7ae6a38553c40fb378caf9b5707d7f8'),
-
-    'downloads/SealionHome-0.9.93-vehicle-release.apk':
-        (24584586, '4e6ccf4751fda031f4504c04f56e6d9fc345522882e1de4639fc63a251f797dc'),
-
-    'downloads/SealionHome-0.9.92-vehicle-release.apk':
-        (24584586, '4ce79c32f4ceafde69e7f1e89dcf333613a0fa36219f297fbb86e2370e04332c'),
-
-    'downloads/SealionHome-0.9.91-vehicle-release.apk':
-        (24568202, '100583cb51c8bb164b392a4bfa0b8facc915a415d1c842a9931a310f89e394ec'),
-
-    'downloads/SealionHome-0.9.90-vehicle-release.apk':
-        (24519050, '706c0915d6855b71cfa7c65afbd7777ea206fb5ed184884946384961df123214'),
-
-    'downloads/SealionLink-0.8.55-phone-release.apk':
-        (23565905, '24f92aac4d00d547e37c92f939d4a092a825a10757b811804d6f8e6426a86749'),
-
-    'downloads/SealionLink-0.8.54-phone-release.apk':
-        (23549521, '70a2d222a37f30340878567be0021fae3e28ee6508c243cfbfc48eec7cd30df6'),
-
-    'downloads/SealionHome-0.9.89-vehicle-release.apk':
-        (24519050, '39876bce0ef864f0c14cd1add4f9d74153dd26ab753a633c16ea8785e9f22503'),
-
-    'downloads/SealionLink-0.8.53-phone-release.apk':
-        (23549521, '09d2bb6ad0e4a7819132ad83ff215d9bfa7dbccda9c3993fb553063a7a218cd6'),
-
-    'downloads/SealionHome-0.9.77-vehicle-release.apk':
-        (33505667, '22168a3ae7428a9bcf7a3776803ffd6e01d9859f9fc45f200676f5d00c211cea'),
-
-    'downloads/SealionLink-0.8.45-phone-release.apk':
-        (24352336, 'c89aa2f62f7fd30bf04f74cc7fa65dac58954a7321975f36f39047125e618434'),
-
-    'downloads/SealionHome-0.9.76-vehicle-release.apk':
-        (33456515, 'a8d536baedae0ce7a9d46014a74adcf8b2602d2326aa6de30fe6be83e59c83a5'),
-
-    'downloads/SealionHome-0.9.75-vehicle-release.apk':
-        (33423747, '5525fb820b326eb8d90e15942d2cdcc015aad20ae2bcb2097eb435e5f3a91f9e'),
-
-    'downloads/SealionHome-0.9.74-vehicle-release.apk':
-        (33407363, '17fbee1a373ce303e78d25fe735900024f459f8cad3c7fe4030809948383f6d6'),
-
-    'downloads/SealionLink-0.8.44-phone-release.apk':
-        (24352336, '84eef83443083b5fca452f3ff8a65cb7ed905dc6e6f10dbb114efd6bff5293d2'),
-
-    'downloads/SealionHome-0.9.73-vehicle-release.apk':
-        (33407363, '1c8188db8cf29b2e1f6ba1410685798a43fba48dc32a84866e216cedc3794a79'),
-
-    'downloads/SealionHome-0.9.72-vehicle-release.apk':
-        (33390979, '1c99d043ba687fea30303024720684415d30020bd698eebdef6568676746de71'),
-
-    'downloads/SealionHome-0.9.71-vehicle-release.apk':
-        (33374595, 'f5806f099ac98b57d423828c7a0c37eec18a2416e7e490fa8d6165f8491f1036'),
-
-    'downloads/SealionHome-0.9.70-vehicle-release.apk':
-        (33358211, '7c06d93e821d5bee2ccfb5f9d147eddc843a5c0617c840cdd9fca3d7e809dcf9'),
-
-    'downloads/SealionHome-0.9.69-vehicle-release.apk':
-        (33358211, '00b829982e85a3924e32d7807ba356eb91ad8cbdf6bf8542508b180ad9ad32e2'),
-
-    'downloads/SealionHome-0.9.68-vehicle-release.apk':
-        (33358211, 'b09f6d783c011e6bb8140e3abcd6d0bd98b9ef4a0687bce47a46d25cf78c7bf6'),
-
-    'downloads/SealionHome-0.9.67-vehicle-release.apk':
-        (33358211, '56c2c8d1eb932ea34c47cf71451e71fcbc3be031a239daf318664ca49bfd320e'),
-
-    'downloads/SealionLink-0.8.43-phone-release.apk':
-        (24352336, 'a2671487269e9c9e805a12b590ace9f01a72fc31a621a8f72d4ff00ef5b15ba3'),
-
-    'downloads/SealionHome-0.9.66-vehicle-release.apk':
-        (33358211, '21a98b85362ef3384fac737138ab681997c52bdffc7ce2e13f1a896b7d776d82'),
-
-    'downloads/SealionLink-0.8.42-phone-release.apk':
-        (24352336, '353a1c4e65dff88d0d57e11d764c96dbb25cf7ba8c3464d11b51433ee9690783'),
-
-    'downloads/SealionHome-0.9.65-vehicle-release.apk':
-        (33309059, '03de54bb1a2e2e21e53fcd2df2bcb0e14c639a7616163096624abc989806d60e'),
-
-    'downloads/SealionLink-0.8.41-phone-release.apk':
-        (24352336, 'b331492fe928c129f52f063151d439e57a39953449b475d425088fb08ec4f1c8'),
-
-    'downloads/SealionHome-0.9.64-vehicle-release.apk':
-        (33309059, '4ce0fd173b4279d79919ee1759b03b9f51015b2e8e3eb28d45ae84079b3d6233'),
-
-    'downloads/SealionHome-0.9.63-vehicle-release.apk':
-        (33276201, '53130e49cc56b2410206f3de8c5ed21c68ac013d53815791096bcbd1bc5b5a56'),
-
-    'downloads/SealionHome-0.9.62-vehicle-release.apk':
-        (33259817, 'cd547597df30a3a518e2234e410cc93164aeaa515cf7dabb9519cb9b79c20b39'),
-
-    'downloads/SealionHome-0.9.61-vehicle-release.apk':
-        (33407273, 'c301c0f06bf8a347d92deb1227d7c567db9114d0043f2f60067a65f9b9d66dfd'),
-    'downloads/SealionLink-0.8.40-phone-release.apk':
-        (24401488, 'a86dd8e67e47c7acd396bffcc57aff59a6e2598fb196ef518e88cc18b8b03d7d'),
-
-    'downloads/SealionHome-0.9.60-vehicle-release.apk':
-        (33374505, '5bacb9aebfeac6416cb821c552dfe825bb5e63213af6517725d392f66f0a5e98'),
-    'downloads/SealionLink-0.8.39-phone-release.apk':
-        (24385104, '6c98f25284bdfd739d692e1ffd159043d20f0f73504feadf58fe9f1e65f7c08c'),
-
-    'downloads/SealionLink-0.8.38-phone-release.apk':
-        (24385104, '6a4fd89ab7bff52f4d3875a0a12514f79bf0e502caf40105791e3904dc0a9efd'),
-    'downloads/SealionHome-0.9.59-vehicle-release.apk':
-        (33358121, '9d19c58d59079de5892495a98624e3008237199788b1868eb54c0095e9c944bf'),
-    'downloads/SealionHome-0.9.58-vehicle-release.apk':
-        (33358121, '8da1e4fcbd799bfff4b5372d3fabc96881966503b09724d0118c91237c897895'),
-    'downloads/SealionLink-0.8.37-phone-release.apk':
-        (24385104, '8968d4549408bb776b1837c9fd20ce5373f8717fc0368f8a7010de317870a271'),
-    'downloads/SealionHome-0.9.57-vehicle-release.apk':
-        (33341737, '8f72ede9330c2d69b85e23693b850cfd399591f38ed4c1cb940892ffaa05c6ec'),
+    'downloads/SealionHome-0.10.1-vehicle-release.apk':
+        (24633738, '7e6dfd012d417fac6b6716c1f6140d84d6a7268e495ca2c7199a65aa7a77a7c8'),
+    'downloads/SealionHome-0.10.2-vehicle-release.apk':
+        (24633738, '92c94c03493c58cadea7ddf2561de439eace5c9f58b90b5c97ca81479fae8d10'),
+    'downloads/SealionHome-0.11.0-vehicle-release.apk':
+        (24666506, '704d2b17d659a78fdc17bb8cab635e9e7642c23e671d9fa75c0d6c41f7a86a3e'),
+    'downloads/SealionHome-0.11.1-vehicle-release.apk':
+        (24666506, 'eadaebebcad0ac2f3e5bd10b8749e2324a69d692647bb39751dc6a8ee82bd5cc'),
+    'downloads/SealionHome-0.12.0-vehicle-release.apk':
+        (24666506, 'c4ea8b271598fbe069167d3717bc66c69f30df1a0dee768b3da81d38ca97c339'),
+    'downloads/SealionHome-0.12.1-vehicle-release.apk':
+        (24682890, 'f07d072b90456ebe225703441cd44939c354e48862e3c5286489ba6d5fbc5a94'),
+    'downloads/SealionHome-0.12.10-vehicle-release.apk':
+        (24682890, '133866dc7906dff637316cff4088abbb0a29cd7505b23f37c3307264d2869dc4'),
+    'downloads/SealionHome-0.12.11-vehicle-release.apk':
+        (24682890, 'a9133684a6c00d9a00942c13844f419a3779e4ad2cb9302c455051fbf5660bb9'),
+    'downloads/SealionHome-0.12.12-vehicle-release.apk':
+        (24682890, '470491f69f302a7c54cf91b18c856e2d9705d37b0b703b7320cc248fccf3a63d'),
+    'downloads/SealionHome-0.12.2-vehicle-release.apk':
+        (24682890, '9eee196728de168d04c423a0851b60d46f5e1c67a4aaa557f7c933a090203faa'),
+    'downloads/SealionHome-0.12.3-vehicle-release.apk':
+        (24682890, '61322e51e4b92c1ded51135c9f18645b212af16da0eae8e5aaf30181aadec76e'),
+    'downloads/SealionHome-0.12.4-vehicle-release.apk':
+        (24682890, '799e8bbcdbb0a5076a8b64c9c0efdc29320313ff05961133998f1863a36b47aa'),
+    'downloads/SealionHome-0.12.5-vehicle-release.apk':
+        (24682890, '8d58e40d23228e29c6c444ff38faf2b3cdd4b99b8435de8230754599f3dd63bf'),
+    'downloads/SealionHome-0.12.6-vehicle-release.apk':
+        (24682890, '258153cfc04712b6b611790e83c4fd2194139b089cb3e87613cc4b6531b82bb9'),
+    'downloads/SealionHome-0.12.7-vehicle-release.apk':
+        (24682890, 'c87ece54ca5be31c0ac390a210b71c8167b3a731418c398185a58d28dc343458'),
+    'downloads/SealionHome-0.12.8-vehicle-release.apk':
+        (24682890, 'ef41c17a845a0f22886eaca294127e53c10316d4169b5f4ff3306b7573884c89'),
+    'downloads/SealionHome-0.12.9-vehicle-release.apk':
+        (24682890, '3531fc4a5e9e6a5693f5777a80ed6f9d19591e9b93fd7d80c2a63ee066182c95'),
     'downloads/SealionHome-0.9.56-vehicle-release.apk':
         (33325353, '6cd865e1ebc7d81d10b5f3d12078d5485a2d596f5d9bb0198924bb9e83f4830e'),
+    'downloads/SealionHome-0.9.57-vehicle-release.apk':
+        (33341737, '8f72ede9330c2d69b85e23693b850cfd399591f38ed4c1cb940892ffaa05c6ec'),
+    'downloads/SealionHome-0.9.58-vehicle-release.apk':
+        (33358121, '8da1e4fcbd799bfff4b5372d3fabc96881966503b09724d0118c91237c897895'),
+    'downloads/SealionHome-0.9.59-vehicle-release.apk':
+        (33358121, '9d19c58d59079de5892495a98624e3008237199788b1868eb54c0095e9c944bf'),
+    'downloads/SealionHome-0.9.60-vehicle-release.apk':
+        (33374505, '5bacb9aebfeac6416cb821c552dfe825bb5e63213af6517725d392f66f0a5e98'),
+    'downloads/SealionHome-0.9.61-vehicle-release.apk':
+        (33407273, 'c301c0f06bf8a347d92deb1227d7c567db9114d0043f2f60067a65f9b9d66dfd'),
+    'downloads/SealionHome-0.9.62-vehicle-release.apk':
+        (33259817, 'cd547597df30a3a518e2234e410cc93164aeaa515cf7dabb9519cb9b79c20b39'),
+    'downloads/SealionHome-0.9.63-vehicle-release.apk':
+        (33276201, '53130e49cc56b2410206f3de8c5ed21c68ac013d53815791096bcbd1bc5b5a56'),
+    'downloads/SealionHome-0.9.64-vehicle-release.apk':
+        (33309059, '4ce0fd173b4279d79919ee1759b03b9f51015b2e8e3eb28d45ae84079b3d6233'),
+    'downloads/SealionHome-0.9.65-vehicle-release.apk':
+        (33309059, '03de54bb1a2e2e21e53fcd2df2bcb0e14c639a7616163096624abc989806d60e'),
+    'downloads/SealionHome-0.9.66-vehicle-release.apk':
+        (33358211, '21a98b85362ef3384fac737138ab681997c52bdffc7ce2e13f1a896b7d776d82'),
+    'downloads/SealionHome-0.9.67-vehicle-release.apk':
+        (33358211, '56c2c8d1eb932ea34c47cf71451e71fcbc3be031a239daf318664ca49bfd320e'),
+    'downloads/SealionHome-0.9.68-vehicle-release.apk':
+        (33358211, 'b09f6d783c011e6bb8140e3abcd6d0bd98b9ef4a0687bce47a46d25cf78c7bf6'),
+    'downloads/SealionHome-0.9.69-vehicle-release.apk':
+        (33358211, '00b829982e85a3924e32d7807ba356eb91ad8cbdf6bf8542508b180ad9ad32e2'),
+    'downloads/SealionHome-0.9.70-vehicle-release.apk':
+        (33358211, '7c06d93e821d5bee2ccfb5f9d147eddc843a5c0617c840cdd9fca3d7e809dcf9'),
+    'downloads/SealionHome-0.9.71-vehicle-release.apk':
+        (33374595, 'f5806f099ac98b57d423828c7a0c37eec18a2416e7e490fa8d6165f8491f1036'),
+    'downloads/SealionHome-0.9.72-vehicle-release.apk':
+        (33390979, '1c99d043ba687fea30303024720684415d30020bd698eebdef6568676746de71'),
+    'downloads/SealionHome-0.9.73-vehicle-release.apk':
+        (33407363, '1c8188db8cf29b2e1f6ba1410685798a43fba48dc32a84866e216cedc3794a79'),
+    'downloads/SealionHome-0.9.74-vehicle-release.apk':
+        (33407363, '17fbee1a373ce303e78d25fe735900024f459f8cad3c7fe4030809948383f6d6'),
+    'downloads/SealionHome-0.9.75-vehicle-release.apk':
+        (33423747, '5525fb820b326eb8d90e15942d2cdcc015aad20ae2bcb2097eb435e5f3a91f9e'),
+    'downloads/SealionHome-0.9.76-vehicle-release.apk':
+        (33456515, 'a8d536baedae0ce7a9d46014a74adcf8b2602d2326aa6de30fe6be83e59c83a5'),
+    'downloads/SealionHome-0.9.77-vehicle-release.apk':
+        (33505667, '22168a3ae7428a9bcf7a3776803ffd6e01d9859f9fc45f200676f5d00c211cea'),
+    'downloads/SealionHome-0.9.89-vehicle-release.apk':
+        (24519050, '39876bce0ef864f0c14cd1add4f9d74153dd26ab753a633c16ea8785e9f22503'),
+    'downloads/SealionHome-0.9.90-vehicle-release.apk':
+        (24519050, '706c0915d6855b71cfa7c65afbd7777ea206fb5ed184884946384961df123214'),
+    'downloads/SealionHome-0.9.91-vehicle-release.apk':
+        (24568202, '100583cb51c8bb164b392a4bfa0b8facc915a415d1c842a9931a310f89e394ec'),
+    'downloads/SealionHome-0.9.92-vehicle-release.apk':
+        (24584586, '4ce79c32f4ceafde69e7f1e89dcf333613a0fa36219f297fbb86e2370e04332c'),
+    'downloads/SealionHome-0.9.93-vehicle-release.apk':
+        (24584586, '4e6ccf4751fda031f4504c04f56e6d9fc345522882e1de4639fc63a251f797dc'),
+    'downloads/SealionHome-0.9.94-vehicle-release.apk':
+        (24584586, '9e33e8da702c81f76b9ca199b4088ed2f7ae6a38553c40fb378caf9b5707d7f8'),
+    'downloads/SealionHome-0.9.95-vehicle-release.apk':
+        (24584586, '33b4f035d292acbc9c48004b8f96cefd4688474ec8c17b960025c3c3cce785fd'),
+    'downloads/SealionHome-0.9.96-vehicle-release.apk':
+        (24584586, 'ae797b3210fca8985e7a8be51fd134090e34c4c9dcbe2580fb04959cf0a19bc2'),
+    'downloads/SealionHome-0.9.97-vehicle-release.apk':
+        (24617354, '9d9dbd17f3f9b11e4c96aa998cbd44a35c36fe67b9f9e214e36859848734e545'),
+    'downloads/SealionHome-0.9.98-vehicle-release.apk':
+        (24617354, 'ef09e39332946c7bc661919e80b8661054ff85eb72c9081a23819e9bc54b3a30'),
+    'downloads/SealionHome-0.9.99-vehicle-release.apk':
+        (24633738, '432adf7318cd89bba429736c37c66753bb830155a49831d11d87e23c4c30796b'),
+    'downloads/SealionLink-0.8.37-phone-release.apk':
+        (24385104, '8968d4549408bb776b1837c9fd20ce5373f8717fc0368f8a7010de317870a271'),
+    'downloads/SealionLink-0.8.38-phone-release.apk':
+        (24385104, '6a4fd89ab7bff52f4d3875a0a12514f79bf0e502caf40105791e3904dc0a9efd'),
+    'downloads/SealionLink-0.8.39-phone-release.apk':
+        (24385104, '6c98f25284bdfd739d692e1ffd159043d20f0f73504feadf58fe9f1e65f7c08c'),
+    'downloads/SealionLink-0.8.40-phone-release.apk':
+        (24401488, 'a86dd8e67e47c7acd396bffcc57aff59a6e2598fb196ef518e88cc18b8b03d7d'),
+    'downloads/SealionLink-0.8.41-phone-release.apk':
+        (24352336, 'b331492fe928c129f52f063151d439e57a39953449b475d425088fb08ec4f1c8'),
+    'downloads/SealionLink-0.8.42-phone-release.apk':
+        (24352336, '353a1c4e65dff88d0d57e11d764c96dbb25cf7ba8c3464d11b51433ee9690783'),
+    'downloads/SealionLink-0.8.43-phone-release.apk':
+        (24352336, 'a2671487269e9c9e805a12b590ace9f01a72fc31a621a8f72d4ff00ef5b15ba3'),
+    'downloads/SealionLink-0.8.44-phone-release.apk':
+        (24352336, '84eef83443083b5fca452f3ff8a65cb7ed905dc6e6f10dbb114efd6bff5293d2'),
+    'downloads/SealionLink-0.8.45-phone-release.apk':
+        (24352336, 'c89aa2f62f7fd30bf04f74cc7fa65dac58954a7321975f36f39047125e618434'),
+    'downloads/SealionLink-0.8.53-phone-release.apk':
+        (23549521, '09d2bb6ad0e4a7819132ad83ff215d9bfa7dbccda9c3993fb553063a7a218cd6'),
+    'downloads/SealionLink-0.8.54-phone-release.apk':
+        (23549521, '70a2d222a37f30340878567be0021fae3e28ee6508c243cfbfc48eec7cd30df6'),
+    'downloads/SealionLink-0.8.55-phone-release.apk':
+        (23565905, '24f92aac4d00d547e37c92f939d4a092a825a10757b811804d6f8e6426a86749'),
+    'downloads/SealionLink-0.8.56-phone-release.apk':
+        (23565905, 'cc4f57ce850852260633cbba61adf80b6007d35006a89cfea15061e6a1543ff5'),
+    'downloads/SealionLink-0.8.57-phone-release.apk':
+        (23582289, '996ee5835b7ec1e9efaec04a90f2529ec853e14a7dad4c138b5a70ab55903241'),
+    'downloads/SealionLink-0.8.58-phone-release.apk':
+        (23598673, '109871ad600c0fc7007bef6db98215377167d06cc82d0dad2b4ec8f7e20409fe'),
+    'downloads/SealionLink-0.8.59-phone-release.apk':
+        (23598673, '64192262eb97e776ffbcd94cb23323f9eaf40f9cd3cbebc4731f191e3e8bca1b'),
+    'downloads/SealionLink-0.8.60-phone-release.apk':
+        (23598673, 'b01468e1b430fd9adaf9047234f69673250f50ce8e584666894e4279e62f5525'),
+    'downloads/SealionLink-0.8.61-phone-release.apk':
+        (23615057, '08428e67374274f87bbac1c364879bedd7609959254b0f5f30f89f3b21ed9059'),
+    'downloads/SealionLink-0.8.62-phone-release.apk':
+        (23615057, '0d278723b78b7b4b95c6c5cb0394ceaaf4eb155b3e5a9c50e8e1baf59b79efc2'),
+    'downloads/SealionLink-0.8.63-phone-release.apk':
+        (23615057, '07e02aaad80e771bb952fcc9165f5d658ee15c395d9e4809867d1e942762334d'),
+    'downloads/SealionLink-0.8.64-phone-release.apk':
+        (23631441, '7e5699e0831f7ec40198fd9335b61be1ed205c0ee759e0883ad74333cf1e24a5'),
+    'downloads/SealionLink-0.8.65-phone-release.apk':
+        (23631441, '87c75c25d8459858dd635f70b87a672353a3ecae8cb537a6f3bd5b42bd70b7dc'),
+    'downloads/SealionLink-0.8.66-phone-release.apk':
+        (23631441, '8be6fcaa5a3ab886e48f0c463463f84b11308620af707b2ff777707ceff52af4'),
+    'downloads/SealionLink-0.8.67-phone-release.apk':
+        (23631441, '2ea9cb9fe8a4b206d0043605ca85542983aef19b21379cf13f29186ab30283de'),
+    'downloads/SealionLink-0.8.68-phone-release.apk':
+        (23631441, 'f4b98c8257817cab4d034e257e6eb80b0f139470852ea16d713d8e09c3611cf0'),
+    'downloads/SealionLink-0.8.69-phone-release.apk':
+        (23647825, 'd2bdc845a0d3c8778fa1cc72868efc4edb34d7fddc8ede161da6abfcd9186638'),
+    'downloads/SealionLink-0.8.70-phone-release.apk':
+        (23647825, '9407bcedd68378d793e6e6492c2de9f370ec1e8f316925b9543281bf57440239'),
+    'downloads/SealionLink-0.8.71-phone-release.apk':
+        (23647825, '8546306e852ecbc23a7612b547bb3959f73b70398e781e2d6aaa561a10d164c4'),
+    'downloads/SealionLink-0.8.72-phone-release.apk':
+        (23647825, '65e49d2dbb597905381d16b1f819e2e7008591da1b537ca775cd02dbb88e6795'),
+    'downloads/SealionLink-0.8.73-phone-release.apk':
+        (23647825, '1e0f5d405b2c6802d41ae084b1fb687c6b37b7c5a39ec3b3ad23d5be6250ae42'),
+    'downloads/SealionLink-0.8.74-phone-release.apk':
+        (23647825, 'd6bf868f8389945698f2ebd4cb3a9802fda0b99288128b9460331efe07085c9b'),
+    'downloads/SealionWatch-0.1.0-watch-release.apk':
+        (304188, 'f538a6a36848ef714f693f373ebaa3cdf9d08c07c6e092d7863d1ee01bc0ffa9'),
 }
 
 
