@@ -23,18 +23,18 @@ REPOSITORY_FILES = {'README.md', '.github/workflows/pages.yml', 'scripts/check_s
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
-    'downloads/SealionHome-0.12.11-vehicle-release.apk':
-        (24682890, 'a9133684a6c00d9a00942c13844f419a3779e4ad2cb9302c455051fbf5660bb9'),
     'downloads/SealionHome-0.12.12-vehicle-release.apk':
         (24682890, '470491f69f302a7c54cf91b18c856e2d9705d37b0b703b7320cc248fccf3a63d'),
-    'downloads/SealionLink-0.8.73-phone-release.apk':
-        (23647825, '1e0f5d405b2c6802d41ae084b1fb687c6b37b7c5a39ec3b3ad23d5be6250ae42'),
+    'downloads/SealionHome-0.12.13-vehicle-release.apk':
+        (24682890, '12019c2eb907e88b1a08d44698002f1b5ba034415d80bb76fc52b37ace22abbc'),
     'downloads/SealionLink-0.8.74-phone-release.apk':
         (23647825, 'd6bf868f8389945698f2ebd4cb3a9802fda0b99288128b9460331efe07085c9b'),
     'downloads/SealionLink-0.8.75-phone-release.apk':
         (23647825, 'dd1186b6dfbfdb52fb4b2a44dd392b3576880660888a70fe972fb2458c83b116'),
-    'downloads/SealionWatch-0.1.0-watch-release.apk':
-        (304188, 'f538a6a36848ef714f693f373ebaa3cdf9d08c07c6e092d7863d1ee01bc0ffa9'),
+    'downloads/SealionLink-0.8.76-phone-release.apk':
+        (23647825, '7e850b02313620bc4523669f840df9e35ab24d1225349ca7405eda7adef51ee3'),
+    'downloads/LumiWatch-0.1.1-watch-release.apk':
+        (304188, 'b68e94eddda10e198ff79092c99ccf0baa68bc56e330c07535e23e4c1959f84b'),
 }
 
 

@@ -2,17 +2,17 @@
   "schema": 1,
   "date": "2026-11-06",
   "vehicle": {
-    "versionName": "0.12.13",
-    "versionCode": 199,
-    "file": "downloads/SealionHome-0.12.13-vehicle-release.apk",
+    "versionName": "0.12.14",
+    "versionCode": 200,
+    "file": "downloads/SealionHome-0.12.14-vehicle-release.apk",
     "bytes": 24682890,
-    "sha256": "12019c2eb907e88b1a08d44698002f1b5ba034415d80bb76fc52b37ace22abbc"
+    "sha256": "59d8b88ea725f39892f060db29dd46b810c43e5bbdda495d92bc8f8f862cbbdb"
   },
   "phone": {
-    "versionName": "0.8.76",
-    "versionCode": 77,
-    "file": "downloads/SealionLink-0.8.76-phone-release.apk",
+    "versionName": "0.8.77",
+    "versionCode": 78,
+    "file": "downloads/SealionLink-0.8.77-phone-release.apk",
     "bytes": 23647825,
-    "sha256": "7e850b02313620bc4523669f840df9e35ab24d1225349ca7405eda7adef51ee3"
+    "sha256": "668a6ef309b71b27222746fae334286a9a7c8379898858b0ed3ba23043a45ff0"
   }
 }
