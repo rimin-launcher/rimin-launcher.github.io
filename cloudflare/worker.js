@@ -180,9 +180,11 @@ function clean(v, max) {
   return String(v ?? "").replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f​-‏‪-‮⁦-⁩]/g, "")
     .replace(/\n{4,}/g, "\n\n\n").trim().slice(0, max);
 }
-async function isOwner(request, env) {
+async function isOwner(request, env, store) {
   const m = /^Bearer (.{20,200})$/.exec(request.headers.get("authorization") || "");
-  if (!m || !env.QNA_ADMIN_TOKEN) return false;
+  if (!m) return false;
+  if (m[1].startsWith("s_")) return store ? await store.sessionValid(await sha256hex(m[1]), Date.now()) : false;
+  if (!env.QNA_ADMIN_TOKEN) return false;
   const [a, b] = await Promise.all([m[1], env.QNA_ADMIN_TOKEN].map(t => crypto.subtle.digest("SHA-256", new TextEncoder().encode(t))));
   return crypto.subtle.timingSafeEqual(a, b);
 }
@@ -234,8 +236,9 @@ async function qna(request, env, path) {
       }
       return json({ items: await store.mine(pairs) });
     }
+    if (path.startsWith("/api/qna/auth/")) return await passkey(request, env, store, path.slice(14), ip);
     if (path === "/api/qna/admin") {
-      if (!(await isOwner(request, env))) {
+      if (!(await isOwner(request, env, store))) {
         if (await limited(env, "admin|" + ip)) return json({ error: "시도가 너무 많아요. 1분 뒤 다시 해 주세요" }, 429);
         return json({ error: "주인 키가 맞지 않아요" }, 401);
       }
@@ -258,6 +261,115 @@ async function qna(request, env, path) {
   }
 }
 
+// ---- Owner sign-in with a passkey (fingerprint / face / screen lock), WebAuthn without attestation ----
+// The first device is registered with the owner key; a signed-in device can register more without it.
+const SESSION_DAYS = 30, CHALLENGE_MS = 120000;
+const b64u = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const unb64u = str => { const s = String(str || "").replace(/-/g, "+").replace(/_/g, "/"); const b = atob(s + "=".repeat((4 - s.length % 4) % 4)); return Uint8Array.from(b, c => c.charCodeAt(0)); };
+const randomB64u = n => b64u(crypto.getRandomValues(new Uint8Array(n)));
+const eq = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
+
+function derToRaw(der) { // ECDSA signature: SEQUENCE { INTEGER r, INTEGER s } -> r || s (32 bytes each)
+  let i = 2; if (der[1] & 0x80) i = 2 + (der[1] & 0x7f);
+  const part = () => { if (der[i++] !== 2) throw new Error("bad sig"); const len = der[i++]; let v = der.slice(i, i + len); i += len;
+    while (v.length > 32 && v[0] === 0) v = v.slice(1); const out = new Uint8Array(32); out.set(v, 32 - v.length); return out; };
+  const r = part(), t = part(); const raw = new Uint8Array(64); raw.set(r); raw.set(t, 32); return raw;
+}
+async function verifySig(alg, spki, data, sig) {
+  if (alg === -7) {
+    const k = await crypto.subtle.importKey("spki", spki, { name: "ECDSA", namedCurve: "P-256" }, false, ["verify"]);
+    return crypto.subtle.verify({ name: "ECDSA", hash: "SHA-256" }, k, derToRaw(sig), data);
+  }
+  if (alg === -257) {
+    const k = await crypto.subtle.importKey("spki", spki, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["verify"]);
+    return crypto.subtle.verify("RSASSA-PKCS1-v1_5", k, sig, data);
+  }
+  if (alg === -8) {
+    const k = await crypto.subtle.importKey("spki", spki, { name: "Ed25519" }, false, ["verify"]);
+    return crypto.subtle.verify("Ed25519", k, sig, data);
+  }
+  return false;
+}
+// Checks clientDataJSON and authenticatorData shared by registration and sign-in; returns the sign counter.
+async function checkCeremony(request, store, kind, clientDataB64, authDataB64) {
+  const url = new URL(request.url);
+  const clientRaw = unb64u(clientDataB64), authData = unb64u(authDataB64);
+  const client = JSON.parse(new TextDecoder().decode(clientRaw));
+  if (client.type !== (kind === "register" ? "webauthn.create" : "webauthn.get")) throw new Error("type");
+  if (client.origin !== url.origin) throw new Error("origin");
+  if (!(await store.useChallenge(String(client.challenge || ""), kind, Date.now()))) throw new Error("challenge");
+  if (authData.length < 37) throw new Error("authData");
+  const rpHash = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(url.hostname)));
+  if (!eq(authData.slice(0, 32), rpHash)) throw new Error("rpId");
+  const flags = authData[32];
+  if (!(flags & 1) || !(flags & 4)) throw new Error("user verification");
+  const counter = new DataView(authData.buffer, authData.byteOffset + 33, 4).getUint32(0);
+  return { clientRaw, authData, counter };
+}
+function deviceName(ua) {
+  ua = String(ua || "");
+  const os = /Android/.test(ua) ? "Android" : /iPhone|iPad/.test(ua) ? "iPhone·iPad" : /Windows/.test(ua) ? "Windows" : /Mac OS X/.test(ua) ? "Mac" : /Linux/.test(ua) ? "Linux" : "기기";
+  const br = /SamsungBrowser/.test(ua) ? "삼성 인터넷" : /Edg\//.test(ua) ? "Edge" : /Chrome\//.test(ua) ? "Chrome" : /Firefox\//.test(ua) ? "Firefox" : /Safari\//.test(ua) ? "Safari" : "";
+  return (os + (br ? " · " + br : "")).slice(0, 40);
+}
+
+async function passkey(request, env, store, action, ip) {
+  if (request.method !== "POST") return json({ error: "POST만 돼요" }, 405);
+  if (env.AUTH_LIMIT && !(await env.AUTH_LIMIT.limit({ key: "auth|" + ip })).success) return json({ error: "시도가 너무 많아요. 1분 뒤 다시 해 주세요" }, 429);
+  const body = (await readJson(request, 20000)) || {};
+  const now = Date.now(), host = new URL(request.url).hostname;
+  try {
+    if (action === "login-options") {
+      const challenge = randomB64u(32); await store.addChallenge(challenge, "login", now + CHALLENGE_MS);
+      const creds = await store.credentials();
+      if (!creds.length) return json({ error: "등록된 기기가 없어요. 먼저 이 기기를 등록해 주세요" }, 404);
+      return json({ challenge, rpId: host, allow: creds.map(c => c.id) });
+    }
+    if (action === "login") {
+      const cred = await store.credential(String(body.id || ""));
+      if (!cred) return json({ error: "등록되지 않은 기기예요" }, 401);
+      const { clientRaw, authData, counter } = await checkCeremony(request, store, "login", body.clientDataJSON, body.authenticatorData);
+      const data = new Uint8Array(authData.length + 32);
+      data.set(authData); data.set(new Uint8Array(await crypto.subtle.digest("SHA-256", clientRaw)), authData.length);
+      if (!(await verifySig(cred.alg, unb64u(cred.pubkey), data, unb64u(body.signature)))) return json({ error: "확인에 실패했어요" }, 401);
+      if ((counter || cred.counter) && counter <= cred.counter) return json({ error: "복제된 기기로 보여 막았어요" }, 401);
+      const token = "s_" + randomB64u(32);
+      await store.signIn(cred.id, counter, await sha256hex(token), now, now + SESSION_DAYS * 86400000);
+      return json({ ok: true, token, device: cred.name });
+    }
+    // Registering needs the owner key or an existing passkey session.
+    if (!(await isOwner(request, env, store))) return json({ error: "주인 키가 맞지 않아요" }, 401);
+    if (action === "register-options") {
+      const challenge = randomB64u(32); await store.addChallenge(challenge, "register", now + CHALLENGE_MS);
+      const creds = await store.credentials();
+      return json({ challenge, rpId: host, userId: b64u(new TextEncoder().encode("lumi-owner")), exclude: creds.map(c => c.id) });
+    }
+    if (action === "register") {
+      const alg = parseInt(body.alg, 10), id = String(body.id || "");
+      if (![-7, -8, -257].includes(alg) || !/^[A-Za-z0-9_-]{16,700}$/.test(id) || !body.publicKey) return json({ error: "이 기기는 지원하지 않는 방식이에요" }, 400);
+      const { counter } = await checkCeremony(request, store, "register", body.clientDataJSON, body.authenticatorData);
+      const spki = unb64u(body.publicKey);
+      const algo = alg === -7 ? { name: "ECDSA", namedCurve: "P-256" } : alg === -257 ? { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" } : { name: "Ed25519" };
+      await crypto.subtle.importKey("spki", spki, algo, false, ["verify"]); // throws on a malformed key
+      const name = deviceName(request.headers.get("user-agent"));
+      if (!(await store.addCredential(id, b64u(spki), alg, name, counter, now))) return json({ error: "이미 등록된 기기예요" }, 409);
+      const token = "s_" + randomB64u(32);
+      await store.signIn(id, counter, await sha256hex(token), now, now + SESSION_DAYS * 86400000);
+      return json({ ok: true, token, device: name });
+    }
+    if (action === "devices") return json({ items: (await store.credentials()).map(c => ({ id: c.id, name: c.name, created: c.created, used: c.used })) });
+    if (action === "remove") return json({ ok: await store.removeCredential(String(body.id || "")) });
+    if (action === "logout") {
+      const m = /^Bearer (s_.+)$/.exec(request.headers.get("authorization") || "");
+      if (m) await store.signOut(await sha256hex(m[1]));
+      return json({ ok: true });
+    }
+    return json({ error: "Not Found" }, 404);
+  } catch (e) {
+    return json({ error: "기기 확인에 실패했어요. 다시 해 주세요" }, 400);
+  }
+}
+
 export class QnaStore extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env);
@@ -267,7 +379,39 @@ export class QnaStore extends DurableObject {
       private INTEGER NOT NULL DEFAULT 0, ticket TEXT NOT NULL, answer TEXT NOT NULL DEFAULT '',
       answered INTEGER NOT NULL DEFAULT 0, hidden INTEGER NOT NULL DEFAULT 0)`);
     this.sql.exec("CREATE INDEX IF NOT EXISTS questions_public ON questions (answered, private, hidden, id)");
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS credentials (id TEXT PRIMARY KEY, pubkey TEXT NOT NULL, alg INTEGER NOT NULL,
+      name TEXT NOT NULL, counter INTEGER NOT NULL DEFAULT 0, created INTEGER NOT NULL, used INTEGER NOT NULL DEFAULT 0)`);
+    this.sql.exec("CREATE TABLE IF NOT EXISTS challenges (challenge TEXT PRIMARY KEY, kind TEXT NOT NULL, expires INTEGER NOT NULL)");
+    this.sql.exec("CREATE TABLE IF NOT EXISTS sessions (hash TEXT PRIMARY KEY, credential TEXT NOT NULL, expires INTEGER NOT NULL)");
   }
+  addChallenge(challenge, kind, expires) {
+    this.sql.exec("DELETE FROM challenges WHERE expires < ?", Date.now());
+    if (this.sql.exec("SELECT COUNT(*) AS n FROM challenges").one().n > 200) this.sql.exec("DELETE FROM challenges");
+    this.sql.exec("INSERT INTO challenges (challenge, kind, expires) VALUES (?, ?, ?)", challenge, kind, expires);
+  }
+  useChallenge(challenge, kind, now) {
+    return this.sql.exec("DELETE FROM challenges WHERE challenge = ? AND kind = ? AND expires >= ?", challenge, kind, now).rowsWritten > 0;
+  }
+  credentials() { return this.sql.exec("SELECT id, name, alg, created, used FROM credentials ORDER BY created").toArray(); }
+  credential(id) { return this.sql.exec("SELECT * FROM credentials WHERE id = ?", id).toArray()[0] || null; }
+  addCredential(id, pubkey, alg, name, counter, now) {
+    if (this.credential(id)) return false;
+    this.sql.exec("INSERT INTO credentials (id, pubkey, alg, name, counter, created) VALUES (?, ?, ?, ?, ?, ?)", id, pubkey, alg, name, counter, now);
+    return true;
+  }
+  removeCredential(id) {
+    this.sql.exec("DELETE FROM sessions WHERE credential = ?", id);
+    return this.sql.exec("DELETE FROM credentials WHERE id = ?", id).rowsWritten > 0;
+  }
+  signIn(credential, counter, hash, now, expires) {
+    this.sql.exec("DELETE FROM sessions WHERE expires < ?", now);
+    this.sql.exec("UPDATE credentials SET counter = ?, used = ? WHERE id = ?", counter, now, credential);
+    this.sql.exec("INSERT INTO sessions (hash, credential, expires) VALUES (?, ?, ?)", hash, credential, expires);
+  }
+  sessionValid(hash, now) {
+    return this.sql.exec("SELECT 1 FROM sessions s JOIN credentials c ON c.id = s.credential WHERE s.hash = ? AND s.expires > ?", hash, now).toArray().length > 0;
+  }
+  signOut(hash) { this.sql.exec("DELETE FROM sessions WHERE hash = ?", hash); }
   publicList(before) {
     const rows = this.sql.exec(`SELECT id, created, name, body, answer, answered FROM questions
       WHERE answered > 0 AND private = 0 AND hidden = 0 ${before > 0 ? "AND id < ?" : ""} ORDER BY id DESC LIMIT ${PAGE + 1}`,

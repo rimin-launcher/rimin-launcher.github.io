@@ -311,3 +311,12 @@ section { padding: 88px 0; }
 .qna-danger { color: #ffb3b3; }
 @media (max-width: 560px) { .qna-form { padding: 18px; } .qna-tabs .qna-logout { margin-left: 0; } }
 .faq-more { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; color: var(--muted); }
+.qna-login { justify-items: start; }
+.qna-passkey { min-height: 56px; font-size: 17px; padding: 0 28px; }
+.qna-first { width: 100%; border-top: 1px solid var(--line); padding-top: 14px; }
+.qna-first summary { cursor: pointer; color: var(--muted); font-weight: 600; min-height: 32px; }
+.qna-keyform { margin-top: 14px; display: grid; gap: 14px; }
+.qna-device { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+.doc-main .qna-device p { margin: 0; }
+.doc-main .qna-device .qna-device-name { color: var(--ink); font-weight: 700; }
+.qna-list > .btn { justify-self: start; }

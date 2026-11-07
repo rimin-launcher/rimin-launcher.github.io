@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#07080f"><meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer"><title>답변 관리 — Lumi</title><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css?v=lumi-4"></head><body><a class="skip-link" href="#main">본문 바로가기</a><header class="topbar">
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#07080f"><meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer"><title>답변 관리 — Lumi</title><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css?v=lumi-5"></head><body><a class="skip-link" href="#main">본문 바로가기</a><header class="topbar">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Lumi 처음으로"><img src="assets/mark.svg" alt="">Lumi<small>Launcher</small></a>
     <nav class="topnav" aria-label="주 메뉴">
@@ -9,22 +9,30 @@
       <a class="nav-cta" href="index.html#download">다운로드</a>
     </nav>
   </div>
-</header><main id="main" class="doc-main qna"><h1>답변 관리</h1><p class="article-intro">주인 키를 가진 사람만 답변할 수 있어요.</p>
-<form id="login" class="qna-form" autocomplete="off">
-  <label class="qna-field"><span>주인 키</span><input name="key" type="password" autocomplete="current-password" spellcheck="false" placeholder="주인 키를 붙여 넣으세요"></label>
-  <label class="qna-check"><input type="checkbox" name="remember" checked><span>이 기기에 기억하기 <small>— 공용 컴퓨터에서는 끄세요</small></span></label>
-  <div class="qna-actions"><button class="btn btn-primary" type="submit">들어가기</button><span class="qna-status" id="login-status" role="status" aria-live="polite"></span></div>
-</form>
+</header><main id="main" class="doc-main qna"><h1>답변 관리</h1><p class="article-intro">등록한 기기에서 지문·얼굴 인식으로 들어가요.</p>
+<div id="login" class="qna-form qna-login">
+  <button class="btn btn-primary qna-passkey" type="button" id="signin">지문·얼굴로 들어가기</button>
+  <p class="qna-status" id="login-status" role="status" aria-live="polite"></p>
+  <details class="qna-first" id="first">
+    <summary>처음이거나 새 기기예요</summary>
+    <form id="keyform" class="qna-keyform" autocomplete="off">
+      <p class="qna-note">이 기기를 처음 등록할 때 한 번만 주인 키가 필요해요. 등록한 뒤에는 지문·얼굴로 들어가요. 이미 로그인한 기기가 있으면 그 기기의 「기기」 탭에서 키 없이 추가할 수도 있어요.</p>
+      <label class="qna-field"><span>주인 키</span><input name="key" type="password" autocomplete="current-password" spellcheck="false" placeholder="주인 키를 붙여 넣으세요"></label>
+      <div class="qna-actions"><button class="btn btn-primary" type="submit" data-mode="register">이 기기 등록하기</button><button class="btn btn-ghost" type="submit" data-mode="key">키로만 들어가기</button></div>
+    </form>
+  </details>
+</div>
 <section id="panel" hidden>
   <div class="qna-tabs" role="tablist">
     <button type="button" role="tab" data-filter="pending" aria-selected="true">답변 대기 <b id="c-pending">0</b></button>
     <button type="button" role="tab" data-filter="answered" aria-selected="false">답변함 <b id="c-answered">0</b></button>
     <button type="button" role="tab" data-filter="hidden" aria-selected="false">숨김 <b id="c-hidden">0</b></button>
+    <button type="button" role="tab" data-filter="devices" aria-selected="false">기기</button>
     <button type="button" class="qna-logout" id="logout">로그아웃</button>
   </div>
   <p class="qna-status" id="panel-status" role="status" aria-live="polite"></p>
   <div id="items" class="qna-list"></div>
 </section>
 </main>
-<script src="assets/qna-admin.js?v=1" defer></script>
+<script src="assets/qna-admin.js?v=2" defer></script>
 </body></html>

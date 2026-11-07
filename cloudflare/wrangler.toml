@@ -24,6 +24,11 @@ name = "QNA_LIMIT"
 namespace_id = "1002"
 simple = { limit = 4, period = 60 }
 
+[[ratelimits]]
+name = "AUTH_LIMIT"
+namespace_id = "1003"
+simple = { limit = 20, period = 60 }
+
 [[durable_objects.bindings]]
 name = "QNA"
 class_name = "QnaStore"
