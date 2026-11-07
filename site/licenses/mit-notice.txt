@@ -1,13 +1,7 @@
-public reference implementation reference acknowledgement
+Third-party notice
 
-The optional vendor AP hold approach in ShellParkingPower and ParkingPowerPolicy
-was adapted with reference to the public reference implementation's Di5ParkedPowerHold at commit
-f7d817ff0a28034e21e48d1acb83d6ea3697c73b:
-a public MIT-licensed repository
-
-Our token, transport, heartbeat, voltage gating and app lifecycle are separate.
-No public reference implementation APK, closed libod.so or other public reference implementation native binary is bundled.
-The reference does not establish compatibility with this vehicle.
+The optional vendor AP hold path in ShellParkingPower and ParkingPowerPolicy was adapted with reference to
+publicly available MIT-licensed code. No third-party APK or native binary is bundled.
 
 MIT License
 
