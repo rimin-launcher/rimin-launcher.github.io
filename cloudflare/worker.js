@@ -1,4 +1,5 @@
 // Serves the Lumi website and downloads from the R2 bucket bound as SITE.
+import { DurableObject } from "cloudflare:workers";
 const NO_CACHE = /^(updates\/|releases\.json$)/;
 const LONG_CACHE = /^(downloads\/|assets\/)/;
 
@@ -6,6 +7,7 @@ export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
     if (path === "/api/ai" || path === "/api/weather") return api(request, env, path);
+    if (path === "/api/qna" || path.startsWith("/api/qna/")) return qna(request, env, path);
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method Not Allowed", { status: 405, headers: { allow: "GET, HEAD" } });
     }
@@ -162,4 +164,146 @@ async function weather(url) {
   if (rain !== null && rain !== undefined) say += `, 비 올 확률 ${rain}%`;
   say += rain >= 60 ? "예요. 우산 챙기세요." : "예요.";
   return json({ say });
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Questions and answers on the website. Anyone may ask; only the owner (QNA_ADMIN_TOKEN secret) answers. A question
+// is public only after it has been answered and only when the asker did not mark it private. Askers keep a random
+// ticket in their browser to read their own question's status; only its hash is stored. No IP address is stored.
+const Q_MAX = 1000, A_MAX = 4000, NAME_MAX = 20, PAGE = 20, PENDING_CAP = 500;
+
+async function sha256hex(text) {
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+function clean(v, max) {
+  return String(v ?? "").replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f​-‏‪-‮⁦-⁩]/g, "")
+    .replace(/\n{4,}/g, "\n\n\n").trim().slice(0, max);
+}
+async function isOwner(request, env) {
+  const m = /^Bearer (.{20,200})$/.exec(request.headers.get("authorization") || "");
+  if (!m || !env.QNA_ADMIN_TOKEN) return false;
+  const [a, b] = await Promise.all([m[1], env.QNA_ADMIN_TOKEN].map(t => crypto.subtle.digest("SHA-256", new TextEncoder().encode(t))));
+  return crypto.subtle.timingSafeEqual(a, b);
+}
+async function limited(env, key) {
+  if (!env.QNA_LIMIT) return false;
+  const { success } = await env.QNA_LIMIT.limit({ key });
+  return !success;
+}
+async function readJson(request, max) {
+  const raw = await request.text();
+  if (raw.length > max) return null;
+  try { const v = JSON.parse(raw); return v && typeof v === "object" ? v : null; } catch { return null; }
+}
+
+async function qna(request, env, path) {
+  const ip = request.headers.get("cf-connecting-ip") || "";
+  const store = env.QNA.get(env.QNA.idFromName("main"));
+  try {
+    if (request.method === "POST") {
+      const origin = request.headers.get("origin");
+      if (origin && origin !== new URL(request.url).origin) return json({ error: "다른 사이트에서는 보낼 수 없어요" }, 403);
+      if (!(request.headers.get("content-type") || "").startsWith("application/json")) return json({ error: "잘못된 요청" }, 415);
+    }
+    if (path === "/api/qna") {
+      if (request.method === "GET") {
+        const url = new URL(request.url);
+        return json(await store.publicList(parseInt(url.searchParams.get("before") || "0", 10) || 0));
+      }
+      if (request.method !== "POST") return json({ error: "GET 또는 POST만 돼요" }, 405);
+      if (await limited(env, "ask|" + ip)) return json({ error: "질문을 너무 자주 보냈어요. 잠시 후 다시 해 주세요" }, 429);
+      const body = await readJson(request, 8000);
+      if (!body) return json({ error: "잘못된 요청" }, 400);
+      if (body.website) return json({ ok: true, id: 0, ticket: "" }); // honeypot: bots fill every field
+      const question = clean(body.question, Q_MAX), name = clean(body.name, NAME_MAX).replace(/\n/g, " ");
+      if (question.length < 5) return json({ error: "질문을 5자 이상 써 주세요" }, 400);
+      const ticket = [...crypto.getRandomValues(new Uint8Array(18))].map(b => b.toString(16).padStart(2, "0")).join("");
+      const id = await store.add(name, question, body.private ? 1 : 0, await sha256hex(ticket), Date.now());
+      if (!id) return json({ error: "지금은 답변을 기다리는 질문이 많아요. 나중에 다시 보내 주세요" }, 503);
+      return json({ ok: true, id, ticket });
+    }
+    if (path === "/api/qna/mine" && request.method === "POST") {
+      if (await limited(env, "mine|" + ip)) return json({ error: "잠시 후 다시 해 주세요" }, 429);
+      const body = await readJson(request, 4000);
+      const items = Array.isArray(body && body.items) ? body.items.slice(0, 20) : [];
+      const pairs = [];
+      for (const it of items) {
+        const id = parseInt(it && it.id, 10), t = String((it && it.ticket) || "");
+        if (id > 0 && /^[0-9a-f]{36}$/.test(t)) pairs.push([id, await sha256hex(t)]);
+      }
+      return json({ items: await store.mine(pairs) });
+    }
+    if (path === "/api/qna/admin") {
+      if (!(await isOwner(request, env))) {
+        if (await limited(env, "admin|" + ip)) return json({ error: "시도가 너무 많아요. 1분 뒤 다시 해 주세요" }, 429);
+        return json({ error: "주인 키가 맞지 않아요" }, 401);
+      }
+      if (request.method === "GET") {
+        const filter = new URL(request.url).searchParams.get("filter") || "pending";
+        return json(await store.adminList(["pending", "answered", "hidden", "all"].includes(filter) ? filter : "pending"));
+      }
+      if (request.method !== "POST") return json({ error: "GET 또는 POST만 돼요" }, 405);
+      const body = await readJson(request, 20000);
+      const id = parseInt(body && body.id, 10), action = String((body && body.action) || "");
+      if (!(id > 0) || !["answer", "unanswer", "hide", "show", "delete", "public", "private"].includes(action)) return json({ error: "잘못된 요청" }, 400);
+      const answer = clean(body.answer, A_MAX);
+      if (action === "answer" && !answer) return json({ error: "답변을 써 주세요" }, 400);
+      const ok = await store.act(id, action, answer, Date.now());
+      return ok ? json({ ok: true }) : json({ error: "질문을 찾지 못했어요" }, 404);
+    }
+    return json({ error: "Not Found" }, 404);
+  } catch (e) {
+    return json({ error: "질문 서버에서 문제가 생겼어요. 잠시 후 다시 해 주세요" }, 502);
+  }
+}
+
+export class QnaStore extends DurableObject {
+  constructor(ctx, env) {
+    super(ctx, env);
+    this.sql = ctx.storage.sql;
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS questions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, created INTEGER NOT NULL, name TEXT NOT NULL, body TEXT NOT NULL,
+      private INTEGER NOT NULL DEFAULT 0, ticket TEXT NOT NULL, answer TEXT NOT NULL DEFAULT '',
+      answered INTEGER NOT NULL DEFAULT 0, hidden INTEGER NOT NULL DEFAULT 0)`);
+    this.sql.exec("CREATE INDEX IF NOT EXISTS questions_public ON questions (answered, private, hidden, id)");
+  }
+  publicList(before) {
+    const rows = this.sql.exec(`SELECT id, created, name, body, answer, answered FROM questions
+      WHERE answered > 0 AND private = 0 AND hidden = 0 ${before > 0 ? "AND id < ?" : ""} ORDER BY id DESC LIMIT ${PAGE + 1}`,
+      ...(before > 0 ? [before] : [])).toArray();
+    return { items: rows.slice(0, PAGE), more: rows.length > PAGE };
+  }
+  add(name, body, isPrivate, ticket, now) {
+    const pending = this.sql.exec("SELECT COUNT(*) AS n FROM questions WHERE answered = 0 AND hidden = 0").one().n;
+    if (pending >= PENDING_CAP) return 0;
+    return this.sql.exec("INSERT INTO questions (created, name, body, private, ticket) VALUES (?, ?, ?, ?, ?) RETURNING id",
+      now, name, body, isPrivate, ticket).one().id;
+  }
+  mine(pairs) {
+    const out = [];
+    for (const [id, ticket] of pairs) {
+      const r = this.sql.exec("SELECT id, created, body, private, answer, answered, hidden FROM questions WHERE id = ? AND ticket = ?", id, ticket).toArray()[0];
+      if (r) out.push({ id: r.id, created: r.created, body: r.body, private: r.private, answer: r.hidden ? "" : r.answer, answered: r.hidden ? 0 : r.answered, hidden: r.hidden });
+    }
+    return out;
+  }
+  adminList(filter) {
+    const where = { pending: "answered = 0 AND hidden = 0", answered: "answered > 0 AND hidden = 0", hidden: "hidden = 1", all: "1 = 1" }[filter];
+    const items = this.sql.exec(`SELECT id, created, name, body, private, answer, answered, hidden FROM questions WHERE ${where} ORDER BY id DESC LIMIT 200`).toArray();
+    const counts = this.sql.exec(`SELECT SUM(answered = 0 AND hidden = 0) AS pending, SUM(answered > 0 AND hidden = 0) AS answered, SUM(hidden = 1) AS hidden FROM questions`).one();
+    return { items, counts: { pending: counts.pending || 0, answered: counts.answered || 0, hidden: counts.hidden || 0 } };
+  }
+  act(id, action, answer, now) {
+    const q = {
+      answer: ["UPDATE questions SET answer = ?, answered = ? WHERE id = ?", answer, now, id],
+      unanswer: ["UPDATE questions SET answer = '', answered = 0 WHERE id = ?", id],
+      hide: ["UPDATE questions SET hidden = 1 WHERE id = ?", id],
+      show: ["UPDATE questions SET hidden = 0 WHERE id = ?", id],
+      public: ["UPDATE questions SET private = 0 WHERE id = ?", id],
+      private: ["UPDATE questions SET private = 1 WHERE id = ?", id],
+      delete: ["DELETE FROM questions WHERE id = ?", id],
+    }[action];
+    return this.sql.exec(...q).rowsWritten > 0;
+  }
 }

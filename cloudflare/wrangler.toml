@@ -18,3 +18,16 @@ binding = "AI"
 name = "AI_LIMIT"
 namespace_id = "1001"
 simple = { limit = 12, period = 60 }
+
+[[ratelimits]]
+name = "QNA_LIMIT"
+namespace_id = "1002"
+simple = { limit = 4, period = 60 }
+
+[[durable_objects.bindings]]
+name = "QNA"
+class_name = "QnaStore"
+
+[[migrations]]
+tag = "qna-v1"
+new_sqlite_classes = ["QnaStore"]
