@@ -24,18 +24,8 @@ CLOUDFLARE_PREFIX = 'cloudflare/'
 
 # Keep earlier published downloads for direct links and cached signed feeds.
 ARCHIVED_DOWNLOADS = {
-    'downloads/SealionHome-0.12.12-vehicle-release.apk':
-        (24682890, '470491f69f302a7c54cf91b18c856e2d9705d37b0b703b7320cc248fccf3a63d'),
-    'downloads/SealionHome-0.12.13-vehicle-release.apk':
-        (24682890, '12019c2eb907e88b1a08d44698002f1b5ba034415d80bb76fc52b37ace22abbc'),
-    'downloads/SealionLink-0.8.74-phone-release.apk':
-        (23647825, 'd6bf868f8389945698f2ebd4cb3a9802fda0b99288128b9460331efe07085c9b'),
-    'downloads/SealionLink-0.8.75-phone-release.apk':
-        (23647825, 'dd1186b6dfbfdb52fb4b2a44dd392b3576880660888a70fe972fb2458c83b116'),
-    'downloads/SealionLink-0.8.76-phone-release.apk':
-        (23647825, '7e850b02313620bc4523669f840df9e35ab24d1225349ca7405eda7adef51ee3'),
-    'downloads/LumiWatch-0.1.1-watch-release.apk':
-        (304188, 'b68e94eddda10e198ff79092c99ccf0baa68bc56e330c07535e23e4c1959f84b'),
+    'downloads/LumiWatch-0.1.2-watch-release.apk':
+        (304182, '2a9ea52bc614cb0447025be23929725b00215dda7454971833613052f25aaba9'),
 }
 
 
