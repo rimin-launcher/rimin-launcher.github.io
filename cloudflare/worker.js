@@ -6,7 +6,7 @@ const LONG_CACHE = /^(downloads\/|assets\/)/;
 export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
-    if (path === "/api/ai" || path === "/api/weather") return api(request, env, path);
+    if (path === "/api/ai" || path === "/api/weather" || path === "/api/stt") return api(request, env, path);
     if (path === "/api/qna" || path.startsWith("/api/qna/")) return qna(request, env, path);
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method Not Allowed", { status: 405, headers: { allow: "GET, HEAD" } });
@@ -94,7 +94,7 @@ async function api(request, env, path) {
     if (!success) return json({ error: "요청이 너무 많아요. 잠시 후 다시 말해 주세요" }, 429);
   }
   try {
-    return path === "/api/ai" ? await assistant(request, env) : await weather(new URL(request.url));
+    return path === "/api/ai" ? await assistant(request, env) : path === "/api/stt" ? await transcribe(request, env) : await weather(new URL(request.url));
   } catch (e) {
     return json({ error: "AI 서버에서 문제가 생겼어요. 잠시 후 다시 해 주세요" }, 502);
   }
@@ -130,6 +130,27 @@ async function assistant(request, env) {
     tool: String(a.tool || ""), target: String(a.target || ""), value: Number.isFinite(+a.value) ? +a.value : 0,
     mode: ["up", "down"].includes(a.mode) ? a.mode : "set", text: String(a.text || "").slice(0, 60) }));
   return json({ say: String(out.say || "").slice(0, 300), actions });
+}
+
+// Speech to text for cars without a speech recognizer: a short 16 kHz mono WAV in, its Korean text out. The audio is
+// only passed to Workers AI (Whisper) and never stored.
+const STT_MODEL = "@cf/openai/whisper-large-v3-turbo";
+async function transcribe(request, env) {
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
+  const audio = new Uint8Array(await request.arrayBuffer());
+  if (audio.length < 3200) return json({ error: "말씀을 듣지 못했어요" }, 400);
+  if (audio.length > 640000) return json({ error: "말씀이 너무 길어요. 짧게 말해 주세요" }, 413);
+  let bin = "";
+  for (let i = 0; i < audio.length; i += 0x8000) bin += String.fromCharCode.apply(null, audio.subarray(i, i + 0x8000));
+  let result;
+  try {
+    result = await env.AI.run(STT_MODEL, { audio: btoa(bin), language: "ko", task: "transcribe", vad_filter: true });
+  } catch (e) {
+    const quota = /neuron|quota|limit|4006|exceed/i.test(String(e && e.message));
+    return json({ error: quota ? "오늘 무료 음성 인식 사용량을 다 썼어요. 아래에 입력해 주세요" : "음성 인식 서버가 지금 응답하지 않아요" }, quota ? 429 : 502);
+  }
+  const text = String((result && result.text) || "").trim().slice(0, 300);
+  return json({ text });
 }
 
 const WMO = { 0: "맑음", 1: "대체로 맑음", 2: "구름 조금", 3: "흐림", 45: "안개", 48: "짙은 안개", 51: "약한 이슬비", 53: "이슬비", 55: "강한 이슬비",
